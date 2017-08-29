@@ -35,7 +35,11 @@ def md5(s):
 
 
 def cache(f):
-    pass
+    def wrap(*args):
+        if args not in _cache_db:
+            _cache_db[args] = f(*args)
+        return _cache_db[args]
+    return wrap
 
 
 @cache
